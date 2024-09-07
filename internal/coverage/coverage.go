@@ -1,26 +1,27 @@
 package coverage
 
 import (
+	"fmt"
 	"golang.org/x/tools/cover"
 	"io"
 )
 
 type LineBlock struct {
-	begin int
-	end   int
+	Begin int
+	End   int
 }
 
 type CoverTable struct {
-	filename        string
-	totalLines      int
-	coveredLines    int
-	uncoveredBlocks []LineBlock
+	Filename        string
+	TotalLines      int
+	CoveredLines    int
+	UncoveredBlocks []LineBlock
 }
 
 func MakeTableFromReader(reader io.Reader) ([]CoverTable, error) {
 	var profiles, err = cover.ParseProfilesFromReader(reader)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error parsing coverage output: %s", err)
 	}
 
 	var coverMap = make(map[string]CoverTable)
@@ -28,24 +29,25 @@ func MakeTableFromReader(reader io.Reader) ([]CoverTable, error) {
 		var coverFile, ok = coverMap[profile.FileName]
 		if !ok {
 			coverFile = CoverTable{
-				filename:        profile.FileName,
-				totalLines:      0,
-				coveredLines:    0,
-				uncoveredBlocks: []LineBlock{},
+				Filename:        profile.FileName,
+				TotalLines:      0,
+				CoveredLines:    0,
+				UncoveredBlocks: []LineBlock{},
 			}
 		}
 		for _, block := range profile.Blocks {
 			var blockLines = block.EndLine - block.StartLine
-			coverFile.totalLines += blockLines
+			coverFile.TotalLines += blockLines
 			if block.Count == 0 {
-				coverFile.uncoveredBlocks = append(coverFile.uncoveredBlocks,
-					LineBlock{begin: block.StartLine, end: block.EndLine},
+				coverFile.UncoveredBlocks = append(coverFile.UncoveredBlocks,
+					LineBlock{Begin: block.StartLine, End: block.EndLine},
 				)
 			} else {
-				coverFile.coveredLines += blockLines
+				coverFile.CoveredLines += blockLines
 			}
 
 		}
+		coverMap[profile.FileName] = coverFile
 	}
 
 	var coverTables = make([]CoverTable, 0, len(coverMap))

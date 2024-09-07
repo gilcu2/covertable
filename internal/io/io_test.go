@@ -1,4 +1,4 @@
-package coverage
+package io
 
 import (
 	"gotest.tools/v3/assert"
@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestMakeTable(t *testing.T) {
+func TestMakeTableFromFile(t *testing.T) {
 	// Given coverage output
 	var coverage = `mode: set
 github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:20.13,22.2 1 0

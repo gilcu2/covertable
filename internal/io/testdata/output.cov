@@ -1,0 +1,25 @@
+mode: set
+github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:20.13,22.2 1 0
+github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:24.21,29.21 4 1
+github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:29.21,33.3 3 1
+github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:33.8,39.17 4 0
+github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:39.17,42.4 2 0
+github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:45.2,45.17 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:9.48,11.16 2 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:11.16,13.3 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:14.2,15.17 2 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:18.68,20.17 2 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:20.17,22.3 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:24.2,25.17 2 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:25.17,27.3 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:29.2,31.16 2 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:31.16,32.30 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:32.30,34.4 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:37.2,37.19 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:41.68,44.17 2 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:44.17,46.3 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:48.2,49.17 2 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:49.17,51.3 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:53.2,57.35 3 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:57.35,59.3 1 1
+github.com/gilcu2/topdiffxml/internal/io/process_main.go:61.2,61.26 1 1
