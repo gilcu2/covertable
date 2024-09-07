@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"covertable/internal/coverage"
 	"flag"
 	"fmt"
+	"github.com/gilcu2/covertable/internal/io"
 	"os"
 )
 
@@ -24,9 +24,11 @@ func realMain() int {
 	} else {
 		file = flag.Arg(0)
 
-		var err = coverage.MakeTable(file)
+		var coveTable, err = io.MakeTableFromFile(file)
 		if err != nil {
 			exitCode = 1
+		} else {
+			io.PrintTable(coveTable, os.Stdout)
 		}
 	}
 	return exitCode

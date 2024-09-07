@@ -37,7 +37,7 @@ func TestMakeTableFromFile(t *testing.T) {
 
 	// Then is expected
 	assert.Equal(t, err, nil)
-	assert.Equal(t, len(table), 1)
+	assert.Equal(t, len(table), 2)
 	assert.DeepEqual(t, table[0], expected)
 }
 
