@@ -1,8 +1,8 @@
 package io
 
 import (
-	"covertable/internal/coverage"
 	"fmt"
+	"github.com/gilcu2/covertable/internal/coverage"
 	"io"
 	"os"
 	"strings"
@@ -23,19 +23,19 @@ func MakeTableFromFile(fileName string) ([]coverage.CoverTable, error) {
 	return coverages, nil
 }
 
-func PrintTable(coverages []coverage.CoverTable, writter io.Writer) float32 {
+func PrintTable(coverages []coverage.CoverTable, writer io.Writer) error {
 	var totalLines = 0
 	var totalCovered = 0
-	fmt.Fprint(writter, "File\tCoverage\tUncovered lines\n")
+	fmt.Fprintf(writer, "File\tCoverage\tUncovered lines\n")
 	for _, fileCover := range coverages {
 		totalLines += fileCover.TotalLines
 		totalCovered += fileCover.CoveredLines
-		var fileCoverage = fileCover.CoveredLines / fileCover.TotalLines
+		var fileCoverage = float32(fileCover.CoveredLines) / float32(fileCover.TotalLines)
 		var builder strings.Builder
 		for _, block := range fileCover.UncoveredBlocks {
 			builder.WriteString(fmt.Sprintf("%d-%d,", block.Begin, block.End))
 		}
-		fmt.Fprint(writter, "%s\t%f\t%s\n", fileCover.Filename, fileCoverage, builder.String())
+		fmt.Fprintf(writer, "%s\t%.2g\t%s\n", fileCover.Filename, fileCoverage, builder.String())
 	}
-
+	return nil
 }

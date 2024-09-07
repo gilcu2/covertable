@@ -1,29 +1,22 @@
 package io
 
 import (
+	"bytes"
+	"github.com/gilcu2/covertable/internal/coverage"
 	"gotest.tools/v3/assert"
-	"strings"
 	"testing"
 )
 
 func TestMakeTableFromFile(t *testing.T) {
 	// Given coverage output
-	var coverage = `mode: set
-github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:20.13,22.2 1 0
-github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:24.21,29.21 4 1
-github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:29.21,33.3 3 1
-github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:33.8,39.17 4 0
-github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:39.17,42.4 2 0
-github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:45.2,45.17 1 1
-`
-	var coverageReader = strings.NewReader(coverage)
+	var filename = "testdata/output.cov"
 
 	// And expected table
-	var expected = CoverTable{
+	var expected = coverage.CoverTable{
 		Filename:     "github.com/gilcu2/topdiffxml/cmd/topdiffxml.go",
 		TotalLines:   20,
 		CoveredLines: 9,
-		UncoveredBlocks: []LineBlock{
+		UncoveredBlocks: []coverage.LineBlock{
 			{
 				Begin: 20,
 				End:   22,
@@ -40,10 +33,47 @@ github.com/gilcu2/topdiffxml/cmd/topdiffxml.go:45.2,45.17 1 1
 	}
 
 	// When create table
-	var table, err = MakeTableFromReader(coverageReader)
+	var table, err = MakeTableFromFile(filename)
 
 	// Then is expected
 	assert.Equal(t, err, nil)
 	assert.Equal(t, len(table), 1)
 	assert.DeepEqual(t, table[0], expected)
+}
+
+func TestPrintTable(t *testing.T) {
+	// Given coverage table
+	var fileCoverage = coverage.CoverTable{
+		Filename:     "github.com/gilcu2/topdiffxml/cmd/topdiffxml.go",
+		TotalLines:   20,
+		CoveredLines: 9,
+		UncoveredBlocks: []coverage.LineBlock{
+			{
+				Begin: 20,
+				End:   22,
+			},
+			{
+				Begin: 33,
+				End:   39,
+			},
+			{
+				Begin: 39,
+				End:   42,
+			},
+		},
+	}
+	var coverTable = []coverage.CoverTable{fileCoverage}
+
+	// And expected out
+	var expected = `File	Coverage	Uncovered lines
+github.com/gilcu2/topdiffxml/cmd/topdiffxml.go	0.45	20-22,33-39,39-42,
+`
+
+	// When print table
+	var buffer = new(bytes.Buffer)
+	var err = PrintTable(coverTable, buffer)
+
+	// Then is expected
+	assert.Equal(t, err, nil)
+	assert.Equal(t, buffer.String(), expected)
 }

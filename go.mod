@@ -1,4 +1,4 @@
-module covertable
+module github.com/gilcu2/covertable
 
 go 1.23.0
 
