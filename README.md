@@ -21,6 +21,10 @@ Total coverage  98.00%
 ### From Sources
 go install ./cmd/covertable.go
 
+### From repo
+
+go install github.com/gilcu2/covertable
+
 ### From binary
 
 Download the package from https://github.com/gilcu2/covertable/releases corresponding to your OS and architecture.
