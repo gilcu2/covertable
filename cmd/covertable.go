@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"flag"
@@ -13,18 +13,20 @@ func main() {
 }
 
 func realMain() int {
-	var file string
+	var coverPath string
 	var exitCode int
+	var modulePath string
 
+	flag.StringVar(&modulePath, "module", "go.mod", "Module file path, default go.mod")
 	flag.Parse()
 	if flag.NArg() < 1 {
-		fmt.Println("Print coverage table per file from coverage output file. Usage:")
-		fmt.Println("covertable <file>")
+		fmt.Println("Print golang table per coverPath from golang output coverPath. Usage:")
+		fmt.Println("covertable [-module <path>] <coverPath>")
 		exitCode = 1
 	} else {
-		file = flag.Arg(0)
+		coverPath = flag.Arg(0)
 
-		var coveTable, err = io.MakeTableFromFile(file)
+		var coveTable, err = io.MakeTableFromFile(coverPath, modulePath)
 		if err != nil {
 			exitCode = 1
 		} else {

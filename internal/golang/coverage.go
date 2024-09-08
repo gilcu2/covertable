@@ -1,4 +1,4 @@
-package coverage
+package golang
 
 import (
 	"fmt"
@@ -18,7 +18,7 @@ type CoverTable struct {
 	UncoveredBlocks []LineBlock
 }
 
-func MakeTableFromReader(reader io.Reader) ([]CoverTable, error) {
+func MakeTableFromReader(reader io.Reader, modulePathLen int) ([]CoverTable, error) {
 	var profiles, err = cover.ParseProfilesFromReader(reader)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing coverage output: %s", err)
@@ -29,7 +29,7 @@ func MakeTableFromReader(reader io.Reader) ([]CoverTable, error) {
 		var coverFile, ok = coverMap[profile.FileName]
 		if !ok {
 			coverFile = CoverTable{
-				Filename:        profile.FileName,
+				Filename:        profile.FileName[modulePathLen:],
 				TotalLines:      0,
 				CoveredLines:    0,
 				UncoveredBlocks: []LineBlock{},

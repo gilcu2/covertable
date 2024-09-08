@@ -2,21 +2,22 @@ package io
 
 import (
 	"bytes"
-	"github.com/gilcu2/covertable/internal/coverage"
+	"github.com/gilcu2/covertable/internal/golang"
 	"gotest.tools/v3/assert"
 	"testing"
 )
 
 func TestMakeTableFromFile(t *testing.T) {
-	// Given coverage output
-	var filename = "testdata/output.cov"
+	// Given golang output
+	var coverageFilename = "testdata/output.cov"
+	var moduleFilename = "testdata/go.mod"
 
 	// And expected table
-	var expected = coverage.CoverTable{
-		Filename:     "github.com/gilcu2/topdiffxml/cmd/topdiffxml.go",
+	var expected = golang.CoverTable{
+		Filename:     "cmd/topdiffxml.go",
 		TotalLines:   20,
 		CoveredLines: 9,
-		UncoveredBlocks: []coverage.LineBlock{
+		UncoveredBlocks: []golang.LineBlock{
 			{
 				Begin: 20,
 				End:   22,
@@ -33,7 +34,7 @@ func TestMakeTableFromFile(t *testing.T) {
 	}
 
 	// When create table
-	var table, err = MakeTableFromFile(filename)
+	var table, err = MakeTableFromFile(coverageFilename, moduleFilename)
 
 	// Then is expected
 	assert.Equal(t, err, nil)
@@ -42,12 +43,12 @@ func TestMakeTableFromFile(t *testing.T) {
 }
 
 func TestPrintTable(t *testing.T) {
-	// Given coverage table
-	var fileCoverage = coverage.CoverTable{
-		Filename:     "github.com/gilcu2/topdiffxml/cmd/topdiffxml.go",
+	// Given golang table
+	var fileCoverage1 = golang.CoverTable{
+		Filename:     "cmd/topdiffxml.go",
 		TotalLines:   20,
 		CoveredLines: 9,
-		UncoveredBlocks: []coverage.LineBlock{
+		UncoveredBlocks: []golang.LineBlock{
 			{
 				Begin: 20,
 				End:   22,
@@ -62,12 +63,19 @@ func TestPrintTable(t *testing.T) {
 			},
 		},
 	}
-	var coverTable = []coverage.CoverTable{fileCoverage}
+	var fileCoverage2 = golang.CoverTable{
+		Filename:        "cmd/topdiffxml2.go",
+		TotalLines:      20,
+		CoveredLines:    20,
+		UncoveredBlocks: []golang.LineBlock{},
+	}
+	var coverTable = []golang.CoverTable{fileCoverage1, fileCoverage2}
 
 	// And expected out
-	var expected = `File	Coverage	Uncovered lines
-github.com/gilcu2/topdiffxml/cmd/topdiffxml.go	0.45	20-22,33-39,39-42,
-`
+	var expected = "File\tCoverage\tUncovered lines\n" +
+		"cmd/topdiffxml.go\t45.00%\t20-22,33-39,39-42,\n" +
+		"cmd/topdiffxml2.go\t100.00%\t\n" +
+		"Total coverage\t72.50%\n"
 
 	// When print table
 	var buffer = new(bytes.Buffer)
