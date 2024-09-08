@@ -28,3 +28,27 @@ require (
 	assert.Equal(t, err, nil)
 	assert.Equal(t, path, "github.com/gilcu2/covertable")
 }
+
+func Test_GetModulePathWrongData(t *testing.T) {
+	// Given module file
+	var module = `go 1.23.0
+
+require (
+	github.com/gilcu2/topdiffxml v0.5.6 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
+	golang.org/x/tools v0.24.0 // indirect
+	gotest.tools/v3 v3.5.1 // indirect
+)
+`
+	// And the expected error
+	var expected = "module name not found in module file"
+
+	var reader = strings.NewReader(module)
+
+	// When get path
+	var path, err = GetModulePath(reader)
+
+	// Then is expected
+	assert.Error(t, err, expected)
+	assert.Assert(t, path == "")
+}

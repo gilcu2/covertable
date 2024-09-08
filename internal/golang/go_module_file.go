@@ -12,7 +12,7 @@ func GetModulePath(reader io.Reader) (string, error) {
 	buf.ReadFrom(reader)
 	var moduleName = modfile.ModulePath(buf.Bytes())
 	if moduleName == "" {
-		return moduleName, fmt.Errorf("module name not found in mdoule file")
+		return moduleName, fmt.Errorf("module name not found in module file")
 	}
 	return moduleName, nil
 }

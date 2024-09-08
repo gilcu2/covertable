@@ -12,13 +12,13 @@ func MakeTableFromFile(coverageFileName string, moduleFileName string) ([]golang
 
 	var moduleReader, moduleError = os.Open(moduleFileName)
 	if moduleError != nil {
-		return nil, fmt.Errorf("error reading module file %s: %s", moduleFileName, moduleError)
+		return nil, fmt.Errorf("error reading module file %s: %s", moduleFileName, moduleError.Error())
 	}
 	defer moduleReader.Close()
 
 	var coverageReader, coverageError = os.Open(coverageFileName)
 	if coverageError != nil {
-		return nil, coverageError
+		return nil, fmt.Errorf("error reading coverage file %s: %s", moduleFileName, coverageError.Error())
 	}
 	defer coverageReader.Close()
 
@@ -32,7 +32,7 @@ func MakeTableFromFile(coverageFileName string, moduleFileName string) ([]golang
 	return coverages, nil
 }
 
-func PrintTable(coverages []golang.CoverTable, writer io.Writer) error {
+func PrintTable(coverages []golang.CoverTable, minimunCoverage float64, writer io.Writer) error {
 	var totalLines = 0
 	var totalCovered = 0
 	fmt.Fprintf(writer, "File\tCoverage\tUncovered lines\n")
@@ -46,7 +46,13 @@ func PrintTable(coverages []golang.CoverTable, writer io.Writer) error {
 		}
 		fmt.Fprintf(writer, "%s\t%.2f%%\t%s\n", fileCover.Filename, fileCoverage, builder.String())
 	}
-	var totalCoverage = float32(totalCovered) * 100.0 / float32(totalLines)
+
+	var totalCoverage = float64(totalCovered) * 100.0 / float64(totalLines)
 	fmt.Fprintf(writer, "Total coverage\t%.2f%%\n", totalCoverage)
+
+	if totalCoverage < minimunCoverage {
+		return fmt.Errorf("Fail: coverage %.2f%% < minimun coverage %.2f%%", totalCoverage, minimunCoverage)
+	}
+
 	return nil
 }
