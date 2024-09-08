@@ -9,7 +9,7 @@ import (
 
 func GetModulePath(reader io.Reader) (string, error) {
 	var buf = new(bytes.Buffer)
-	buf.ReadFrom(reader)
+	var _, _ = buf.ReadFrom(reader)
 	var moduleName = modfile.ModulePath(buf.Bytes())
 	if moduleName == "" {
 		return moduleName, fmt.Errorf("module name not found in module file")

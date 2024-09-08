@@ -51,7 +51,7 @@ func PrintTable(coverages []golang.CoverTable, minimunCoverage float64, writer i
 	fmt.Fprintf(writer, "Total coverage\t%.2f%%\n", totalCoverage)
 
 	if totalCoverage < minimunCoverage {
-		return fmt.Errorf("Fail: coverage %.2f%% < minimun coverage %.2f%%", totalCoverage, minimunCoverage)
+		return fmt.Errorf("fail: coverage %.2f%% < minimun coverage %.2f%%", totalCoverage, minimunCoverage)
 	}
 
 	return nil

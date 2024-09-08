@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"golang.org/x/tools/cover"
 	"io"
+	"sort"
 )
 
 type LineBlock struct {
@@ -50,10 +51,20 @@ func MakeTableFromReader(reader io.Reader, modulePathLen int) ([]CoverTable, err
 		coverMap[profile.FileName] = coverFile
 	}
 
-	var coverTables = make([]CoverTable, 0, len(coverMap))
-
-	for _, value := range coverMap {
-		coverTables = append(coverTables, value)
-	}
+	coverTables := getValuesSortedByKeys(coverMap)
 	return coverTables, nil
+}
+
+func getValuesSortedByKeys(coverMap map[string]CoverTable) []CoverTable {
+	var files = make([]string, 0)
+	for file := range coverMap {
+		files = append(files, file)
+	}
+	sort.Strings(files)
+
+	var coverTables = make([]CoverTable, 0, len(coverMap))
+	for _, file := range files {
+		coverTables = append(coverTables, coverMap[file])
+	}
+	return coverTables
 }
