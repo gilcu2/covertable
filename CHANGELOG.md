@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-09-08
+### Added
+- Licence, Readme, publish config
+
 ## [0.1.1] - 2024-09-08
 ### Fixed
 - Github workflow
@@ -14,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Print coverage table per file
 - Check minimum coverage
 
-[Unreleased]: https://github.com/gilcu2/covertable/compare/0.1.1...master
+[Unreleased]: https://github.com/gilcu2/covertable/compare/0.2.0...master
+[0.2.0]: https://github.com/gilcu2/covertable/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/gilcu2/covertable/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/gilcu2/covertable/tree/0.1.0
