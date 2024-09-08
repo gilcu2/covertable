@@ -23,6 +23,9 @@ go install ./cmd/covertable.go
 
 ### From binary
 
+Download the package from https://github.com/gilcu2/covertable/releases corresponding to your OS and architecture.
+Decompress and run the executable.
+
 ### With Brew
 
 1.  brew tap gilcu2/packages
