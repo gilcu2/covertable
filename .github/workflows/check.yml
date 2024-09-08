@@ -44,3 +44,6 @@ jobs:
         run: |
           go test -coverprofile=coverage.out ./...
           go tool cover -func coverage.out
+
+      - name: check coverage
+        run: go run cmd/covertable.go -minimum 97 coverage.out
