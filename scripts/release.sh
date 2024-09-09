@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=${1:-patch}
+VERSION=${1:-patch}  # major|minor|patch|post|new version
 go mod tidy
 kacl-cli release $VERSION --modify --auto-link
 NEWVERSION=$(kacl-cli current)

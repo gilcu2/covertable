@@ -157,7 +157,7 @@ func TestPrintTableWhenLowerCoverage(t *testing.T) {
 	var expectedOutput = "File\tCoverage\tUncovered lines\n" +
 		"cmd/topdiffxml.go\t45.00%\t20-22,33-39,39-42,\n" +
 		"Total coverage\t45.00%\n"
-	var expectedError = "Fail: coverage 45.00% < minimun coverage 80.00%"
+	var expectedError = "fail: coverage 45.00% < minimun coverage 80.00%"
 
 	// When print table
 	var buffer = new(bytes.Buffer)
