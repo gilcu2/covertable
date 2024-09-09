@@ -39,11 +39,11 @@ Decompress and run the executable.
 
 ## Usage
 
-covertable \<coverage file>
+covertable \[-module <path>] \[-minimumCoverage <0.0-100.0>] \<coverage file>
 
 ## Contributions
 
-Happy to get PR 
+Contributions are welcome
 
 - Ensure 100% test coverage
 - Add changes to CHANGELOG Unreleased
