@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.2.3] - 2024-09-09
+### Fixed
+- git ignore
+
 ## [0.2.2] - 2024-09-08
 ### Fixed
 - Readme
@@ -26,7 +30,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Print coverage table per file
 - Check minimum coverage
 
-[Unreleased]: https://github.com/gilcu2/covertable/compare/0.2.2...master
+[Unreleased]: https://github.com/gilcu2/covertable/compare/0.2.3...master
+[0.2.3]: https://github.com/gilcu2/covertable/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/gilcu2/covertable/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/gilcu2/covertable/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/gilcu2/covertable/compare/0.1.1...0.2.0
