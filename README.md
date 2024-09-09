@@ -1,12 +1,13 @@
 # covertable 
 CLI that generate coverage table by files from the Golang coverage output. 
-Include non covered lines per file.
+The output includes non-covered lines per file.
 Also check minimum coverage.
 
 covertable [-module <path>] [-minimumCoverage <0.0-100.0>] <coverPath>
 
 ## Example
 
+```shell
 > go test -coverprofile=coverage.out ./...
 > covertable coverage.out
 File    Coverage        Uncovered lines
@@ -15,6 +16,7 @@ internal/golang/coverage.go     100.00%
 internal/golang/go_module_file.go       100.00%
 internal/io/io.go       100.00%
 Total coverage  98.00%
+```
 
 ## Install
 
@@ -23,7 +25,7 @@ go install ./cmd/covertable.go
 
 ### From repo
 
-go install github.com/gilcu2/covertable
+go get github.com/gilcu2/covertable
 
 ### From binary
 
@@ -37,7 +39,7 @@ Decompress and run the executable.
 
 ## Usage
 
-topdiffxml \<file1.xml> \<file2.xml>
+covertable \<coverage file>
 
 ## Contributions
 
